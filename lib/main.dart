@@ -18,7 +18,7 @@ class AppModule extends Module {
         Bind.factory<Dio>((i) => Dio()),
         Bind.factory((i) => BookDatasourceImpl(i())),
         Bind.factory((i) => BookUseCase(i())),
-        Bind.factory<IBookSeachBloc>((i) => BookSeachBloc(i())),
+        Bind.factory<IBookSearchBloc>((i) => BookSearchBloc(i())),
       ];
 
   @override
