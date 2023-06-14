@@ -70,8 +70,9 @@ class _HomePageState extends State<HomePage> {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 200,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 25,
+                        mainAxisExtent: 300,
                       ),
                       itemCount: book.length,
                       itemBuilder: (context, index) {
