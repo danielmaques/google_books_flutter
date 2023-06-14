@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_books/core/states/base_page_state.dart';
+import 'package:google_books/module/home/data/model/book_model.dart';
 import 'package:google_books/module/home/ui/bloc/seach_book_bloc.dart';
+import 'package:google_books/module/home/ui/widgets/book_widget.dart';
 import 'package:google_books/module/home/ui/widgets/seach_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,17 +15,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late IBookSeachBloc bookSeachBloc;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  late IBookSearchBloc bookSearchBloc;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bookSeachBloc = Modular.get();
+    bookSearchBloc = Modular.get<BookSearchBloc>();
   }
 
   @override
@@ -53,16 +52,41 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-        child: Column(
-          children: [
-            SearchBar(onChanged: (value) {
-              bookSeachBloc.seachBook(value.toString());
-            }),
-            SingleChildScrollView(
-              child: Column(),
-            ),
-          ],
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SearchBar(onChanged: (value) {
+                bookSearchBloc.searchBook(value.toString());
+              }),
+              const SizedBox(height: 20),
+              BlocBuilder(
+                bloc: bookSearchBloc,
+                builder: (context, state) {
+                  if (state is SuccessState) {
+                    final book = (state as SuccessState<BooksModel>).data.items!;
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 25,
+                        mainAxisExtent: 300,
+                      ),
+                      itemCount: book.length,
+                      itemBuilder: (context, index) {
+                        return Book(
+                          bookInfo: book[index],
+                        );
+                      },
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

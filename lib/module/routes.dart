@@ -1,4 +1,4 @@
 class Routes {
   static const rootRoute = '/';
-  static const homeRoute = '/home';
+  static const bookInfoRoute = '/bookInfo';
 }
