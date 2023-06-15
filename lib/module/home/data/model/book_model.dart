@@ -8,7 +8,7 @@ class BooksModel {
   int? totalItems;
   List<Items>? items;
 
-  BooksModel({required this.items});
+  BooksModel({ this.items});
 
   factory BooksModel.fromJson(Map<String, dynamic> json) => _$BooksModelFromJson(json);
 
@@ -27,14 +27,14 @@ class Items {
   SearchInfo? searchInfo;
 
   Items(
-      {required this.kind,
-      required this.id,
-      required this.etag,
-      required this.selfLink,
-      required this.volumeInfo,
-      required this.saleInfo,
-      required this.accessInfo,
-      required this.searchInfo});
+      { this.kind,
+       this.id,
+       this.etag,
+       this.selfLink,
+       this.volumeInfo,
+       this.saleInfo,
+       this.accessInfo,
+       this.searchInfo});
 
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
 
@@ -67,28 +67,28 @@ class VolumeInfo {
   int? ratingsCount;
 
   VolumeInfo(
-      {required this.title,
-      required this.subtitle,
-      required this.authors,
-      required this.publishedDate,
-      required this.industryIdentifiers,
-      required this.readingModes,
-      required this.pageCount,
-      required this.printType,
-      required this.categories,
-      required this.maturityRating,
-      required this.allowAnonLogging,
-      required this.contentVersion,
-      required this.panelizationSummary,
-      required this.imageLinks,
-      required this.language,
-      required this.previewLink,
-      required this.infoLink,
-      required this.canonicalVolumeLink,
-      required this.publisher,
-      required this.description,
-      required this.averageRating,
-      required this.ratingsCount});
+      { this.title,
+       this.subtitle,
+       this.authors,
+       this.publishedDate,
+       this.industryIdentifiers,
+       this.readingModes,
+       this.pageCount,
+       this.printType,
+       this.categories,
+       this.maturityRating,
+       required this.allowAnonLogging,
+       this.contentVersion,
+       this.panelizationSummary,
+       this.imageLinks,
+       this.language,
+       this.previewLink,
+       this.infoLink,
+       this.canonicalVolumeLink,
+       this.publisher,
+       this.description,
+       this.averageRating,
+       this.ratingsCount});
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) => _$VolumeInfoFromJson(json);
 
@@ -100,7 +100,7 @@ class IndustryIdentifiers {
   String? type;
   String? identifier;
 
-  IndustryIdentifiers({required this.type, required this.identifier});
+  IndustryIdentifiers({ this.type,  this.identifier});
 
   factory IndustryIdentifiers.fromJson(Map<String, dynamic> json) =>
       _$IndustryIdentifiersFromJson(json);
@@ -113,7 +113,7 @@ class ReadingModes {
   bool text;
   bool image;
 
-  ReadingModes({required this.text, required this.image});
+  ReadingModes({ required this.text, required this.image});
 
   factory ReadingModes.fromJson(Map<String, dynamic> json) =>
       _$ReadingModesFromJson(json);
@@ -140,7 +140,7 @@ class ImageLinks {
   String? smallThumbnail;
   String? thumbnail;
 
-  ImageLinks({required this.smallThumbnail, required this.thumbnail});
+  ImageLinks({ this.smallThumbnail,  this.thumbnail});
 
   factory ImageLinks.fromJson(Map<String, dynamic> json) => _$ImageLinksFromJson(json);
 
@@ -156,11 +156,11 @@ class SaleInfo {
   List<Offers>? offers;
 
   SaleInfo(
-      {required this.country,
-      required this.saleability,
+      { this.country,
+       this.saleability,
       required this.isEbook,
-      required this.buyLink,
-      required this.offers});
+       this.buyLink,
+       this.offers});
 
   factory SaleInfo.fromJson(Map<String, dynamic> json) => _$SaleInfoFromJson(json);
 
@@ -172,7 +172,7 @@ class Offers {
   int? finskyOfferType;
   bool giftable;
 
-  Offers({required this.finskyOfferType, required this.giftable});
+  Offers({ this.finskyOfferType, required this.giftable});
 
   factory Offers.fromJson(Map<String, dynamic> json) => _$OffersFromJson(json);
 
@@ -193,15 +193,15 @@ class AccessInfo {
   bool quoteSharingAllowed;
 
   AccessInfo(
-      {required this.country,
-      required this.viewability,
+      { this.country,
+       this.viewability,
       required this.embeddable,
       required this.publicDomain,
-      required this.textToSpeechPermission,
-      required this.epub,
-      required this.pdf,
-      required this.webReaderLink,
-      required this.accessViewStatus,
+       this.textToSpeechPermission,
+       this.epub,
+       this.pdf,
+       this.webReaderLink,
+       this.accessViewStatus,
       required this.quoteSharingAllowed});
 
   factory AccessInfo.fromJson(Map<String, dynamic> json) => _$AccessInfoFromJson(json);
@@ -217,8 +217,8 @@ class Epub {
 
   Epub(
       {required this.isAvailable,
-      required this.downloadLink,
-      required this.acsTokenLink});
+       this.downloadLink,
+       this.acsTokenLink});
 
   factory Epub.fromJson(Map<String, dynamic> json) => _$EpubFromJson(json);
 
@@ -229,7 +229,7 @@ class Epub {
 class SearchInfo {
   String? textSnippet;
 
-  SearchInfo({required this.textSnippet});
+  SearchInfo({ this.textSnippet});
 
   factory SearchInfo.fromJson(Map<String, dynamic> json) => _$SearchInfoFromJson(json);
 
