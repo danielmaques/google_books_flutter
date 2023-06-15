@@ -38,6 +38,14 @@ class _BookInfoPageState extends State<BookInfoPage> {
         backgroundColor: Colors.white,
         elevation: 1,
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: () => Modular.to.pop(),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 18,
+            color: Colors.black54,
+          ),
+        ),
         title: const Text.rich(
           TextSpan(
             children: [
