@@ -3,21 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_books/core/states/base_page_state.dart';
 import 'package:google_books/module/home/domain/usecase/book_usecase.dart';
 
-abstract class IBookSeachBloc {
-  Future<void> seachBook(String searchText);
+abstract class IBookSearchBloc extends Cubit<BaseState> {
+  IBookSearchBloc() : super(const EmptyState());
+
+  Future<void> searchBook(String searchText);
 }
 
-class BookSeachBloc extends Cubit<BaseState> implements IBookSeachBloc {
+class BookSearchBloc extends IBookSearchBloc {
   final IBookUseCase _bookUseCase;
 
-  BookSeachBloc(this._bookUseCase) : super(const EmptyState());
+  BookSearchBloc(this._bookUseCase);
 
   @override
-  Future<void> seachBook(String searchText) async {
+  Future<void> searchBook(String searchText) async {
     emit(const LoadingState());
-    final result = await _bookUseCase.searchBooks(searchText);
     try {
-      emit(SuccessState(result));
+      final result = await _bookUseCase.searchBooks(searchText);
+
+      emit(SuccessState(result.data));
     } catch (e) {
       debugPrint(e.toString());
     }

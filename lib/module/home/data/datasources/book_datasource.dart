@@ -1,5 +1,7 @@
-import 'package:google_books/module/home/data/model/book_model.dart';
+import 'package:google_books/core/result_wrapper/result_wrapper.dart';
+
+import '../model/book_model.dart';
 
 abstract class BookDatasource {
-  Future<List<BooksModel>> searchBooks(String searchText);
+  Future<Result<BooksModel>> searchBooks(String searchText);
 }
