@@ -8,7 +8,7 @@ class BookInfoModule extends Module {
   @override
   final List<Bind<Object>> binds = [
     Bind.factory<IBookInfoBloc>((i) => BookInfoBloc(i())),
-    Bind.factory((i) => BookCache()),
+    Bind.lazySingleton((i) => BookCache()),
   ];
 
   @override

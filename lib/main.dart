@@ -4,6 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_books/module/book_info/book_info_module.dart';
 import 'package:google_books/module/home/home_module.dart';
 
+import 'module/favorite/favorite_module.dart';
+
 void main() {
   return runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
@@ -13,6 +15,7 @@ class AppModule extends Module {
   List<Module> get imports => [
         HomeModule(),
         BookInfoModule(),
+        FavoriteModule(),
       ];
 
   @override
@@ -24,6 +27,7 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
         ModuleRoute('/', module: HomeModule()),
         ModuleRoute('/bookInfo', module: BookInfoModule()),
+        ModuleRoute('/favorite', module: FavoriteModule()),
       ];
 }
 

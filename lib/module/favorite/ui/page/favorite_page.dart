@@ -2,25 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_books/core/states/base_page_state.dart';
+import 'package:google_books/module/favorite/ui/bloc/favorite_bloc.dart';
 import 'package:google_books/module/home/data/model/book_model.dart';
-import 'package:google_books/module/home/ui/bloc/seach_book_bloc.dart';
 import 'package:google_books/module/home/ui/widgets/book_widget.dart';
-import 'package:google_books/module/home/ui/widgets/seach_bar_widget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<FavoritePage> createState() => _FavoritePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late IBookSearchBloc bookSearchBloc;
+class _FavoritePageState extends State<FavoritePage> {
+  late IFavoriteBooksBloc favoriteBooksBloc;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    bookSearchBloc = Modular.get<BookSearchBloc>();
+  void initState() {
+    super.initState();
+    favoriteBooksBloc = Modular.get<FavoriteBooksBloc>();
+    favoriteBooksBloc.fetchFavoriteBooks();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    favoriteBooksBloc.close();
   }
 
   @override
@@ -30,6 +36,14 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         elevation: 1,
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: () => Modular.to.pop(),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 18,
+            color: Colors.black54,
+          ),
+        ),
         title: const Text.rich(
           TextSpan(
             children: [
@@ -56,15 +70,11 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SearchBar(onChanged: (value) {
-                bookSearchBloc.searchBook(value.toString());
-              }),
-              const SizedBox(height: 20),
               BlocBuilder(
-                bloc: bookSearchBloc,
+                bloc: favoriteBooksBloc,
                 builder: (context, state) {
-                  if (state is SuccessState) {
-                    final book = (state as SuccessState<BooksModel>).data.items!;
+                  if (state is SuccessState<List<Items>>) {
+                    final favoriteBooks = state.data;
                     return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -74,10 +84,10 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSpacing: 25,
                         mainAxisExtent: 300,
                       ),
-                      itemCount: book.length,
+                      itemCount: favoriteBooks.length,
                       itemBuilder: (context, index) {
                         return Book(
-                          bookInfo: book[index],
+                          bookInfo: favoriteBooks[index],
                         );
                       },
                     );
@@ -88,12 +98,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Modular.to.pushNamed('/favorite');
-        },
-        child: const Icon(Icons.bookmark),
       ),
     );
   }
